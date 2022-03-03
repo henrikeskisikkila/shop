@@ -7,12 +7,11 @@ import {
   TableBody,
   IconButton,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Data from "../Data";
 
 function ProductList() {
-  console.log(Data);
   return (
     <TableContainer>
       <Table>
@@ -33,12 +32,12 @@ function ProductList() {
               <TableCell>{product.price}</TableCell>
               <TableCell>
                 <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon color="error" />
+                  <DeleteOutlinedIcon />
                 </IconButton>
               </TableCell>
               <TableCell>
                 <IconButton edge="end" aria-label="edit">
-                  <EditIcon color="success" />
+                  <EditOutlinedIcon />
                 </IconButton>
               </TableCell>
             </TableRow>

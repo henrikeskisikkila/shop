@@ -9,20 +9,15 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ProductList from "./ProductList";
+import { Link } from "react-router-dom";
+import ProductManagementBar from "./ProductManagementBar";
 
 function ProductManagement() {
   const openAddProduct = () => {};
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Mobile Shop Manager
-          </Typography>
-          <Button color="inherit">Add Product</Button>
-        </Toolbar>
-      </AppBar>
+      <ProductManagementBar />
       <ProductList />
     </>
   );
