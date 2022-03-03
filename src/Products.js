@@ -22,11 +22,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Grid,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Link } from "react-router-dom";
+import Bar from "./Bar";
 
 const products = [
   {
@@ -54,14 +55,6 @@ const products = [
     image: "4321543265431.jpeg",
   },
   {
-    name: "Samsung Galaxy A32 5G",
-    description:
-      "Ota askel tulevaisuuteen 5G-nopeuksilla – Galaxy A32 5G avaa uudet mahdollisuudet suoratoistoon.",
-    price: "239,00",
-    barcode: "4321432143211",
-    image: "4321432143211.jpeg",
-  },
-  {
     name: "Samsung Galaxy S20 FE 4G (2021)",
     description:
       "Galaxy S20 FE sisältää S20-sarjan tärkeimmät ja halutuimmat toiminnot, jotta yhä useampi voisi nauttia todellisen premium-puhelimen tunnusta.",
@@ -76,52 +69,7 @@ function Products() {
 
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Shop
-          </Typography>
-
-          {/* This should be own component SearchBar*/}
-          <TextField
-            id="filled-basic"
-            label=""
-            variant="standard"
-            autoFocus={true}
-            sx={{
-              bgcolor: "background.paper",
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Button>
-                    <SearchIcon />
-                  </Button>
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <IconButton
-            size="large"
-            aria-label="show new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={3} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <Bar />
 
       <Box
         sx={{
@@ -133,10 +81,10 @@ function Products() {
       >
         <Box sx={{ width: 600 }}>
           <FormControl sx={{ marginTop: 6, width: 200 }}>
-            <InputLabel id="demo-simple-select-label">Sort</InputLabel>
+            <InputLabel id="select-sort-label">Sort</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="select-sort-label"
+              id="select-sort-label"
               value={sort}
               label="Age"
               onChange={{}}
@@ -146,49 +94,64 @@ function Products() {
             </Select>
           </FormControl>
         </Box>
-        <Stack>
-          {products.map((product, index) => (
-            <Card
-              key={index}
-              mt={2}
-              sx={{
-                display: "flex",
-                spaceBetween: 1,
-                flexDirection: "row",
-                bgcolor: "background.paper",
-                borderRadius: "2px",
-                boxShadow: 1,
-                width: 600,
-                height: 200,
-                marginTop: 4,
-              }}
-            >
-              <CardMedia
-                component="img"
-                sx={{ width: 150 }}
-                image={`${product.image}`}
-                alt={product.name}
-              />
-              <CardContent>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  {product.name}
-                </Typography>
-                <Typography variant="body2">{product.description}</Typography>
-                <Typography
-                  variant="subtitle1"
-                  style={{ color: "red", fontWeight: "bold" }}
+
+        <Grid container direction="column" alignItems="center" justify="center">
+          <Stack>
+            {products.map((product, index) => (
+              <Link
+                to={`/product/${product.barcode}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Card
+                  key={index}
+                  mt={2}
+                  sx={{
+                    display: "flex",
+                    spaceBetween: 1,
+                    flexDirection: "row",
+                    width: 600,
+                    height: 200,
+                    marginTop: 4,
+                    padding: 2,
+                  }}
                 >
-                  {product.price}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button variant="contained" startIcon={<AddShoppingCartIcon />}>
-                  Add
-                </Button>
-              </CardActions>
-            </Card>
-          ))}
-        </Stack>
+                  <CardMedia
+                    component="img"
+                    sx={{ width: 150 }}
+                    image={`${product.image}`}
+                    alt={product.name}
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{ flexGrow: 1 }}
+                    >
+                      {product.name}
+                    </Typography>
+                    <Typography variant="body2">
+                      {product.description}
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      style={{ color: "red", fontWeight: "bold" }}
+                    >
+                      {product.price}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      variant="contained"
+                      startIcon={<AddShoppingCartIcon />}
+                    >
+                      Add
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Link>
+            ))}
+          </Stack>
+        </Grid>
       </Box>
     </div>
   );

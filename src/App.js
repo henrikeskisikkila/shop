@@ -8,8 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/products" element={<Products />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="*" element={<Products />} />
+        <Route path="/product/:barcode" element={<Product />} />
       </Routes>
     </Router>
   );
