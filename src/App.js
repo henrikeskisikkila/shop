@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Products from "./Products";
 import Product from "./Product";
+import ProductManagement from "./management/ProductManagement";
 
 //import "./App.css";
 
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="*" element={<Products />} />
         <Route path="/product/:barcode" element={<Product />} />
+        <Route path="/management" element={<ProductManagement />} />
       </Routes>
     </Router>
   );
