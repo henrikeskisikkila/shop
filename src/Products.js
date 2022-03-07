@@ -102,8 +102,8 @@ function Products() {
               label="Age"
               onChange={sortProducts}
             >
-              <MenuItem value={"cheapest"}>Cheapest First</MenuItem>
-              <MenuItem value={"expensive"}>Most Expensive First</MenuItem>
+              <MenuItem value={"cheapest"}>Price - Cheapest</MenuItem>
+              <MenuItem value={"expensive"}>Price - Expensive</MenuItem>
             </Select>
           </FormControl>
         </Box>
