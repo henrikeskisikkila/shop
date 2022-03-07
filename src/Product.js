@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Bar from "./Bar";
-import useLocalStorage from "./localStorage";
+import Bar from "./components/Bar";
+import useLocalStorage from "./services/useLocalStorage";
 
 const product = {
   name: "Apple iPhone 13 256 Gt",

@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  Container,
   Stack,
   Box,
-  TextField,
   Button,
-  AccountCircle,
-  InputAdornment,
-  Icon,
-  AppBar,
-  Toolbar,
-  IconButton,
   Typography,
-  Input,
-  Badge,
   Card,
   CardMedia,
   CardContent,
@@ -27,12 +17,11 @@ import {
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Link } from "react-router-dom";
-import Bar from "./Bar";
+import Bar from "./components/Bar";
 import Data from "./Data";
-import useLocalStorage from "./localStorage";
+import useLocalStorage from "./services/useLocalStorage";
 
 function Products() {
-  const [sort, setSort] = useState();
   const [products, setProducts] = useState(Data);
   const [cart, setCart] = useLocalStorage("cart", []);
 
@@ -44,8 +33,9 @@ function Products() {
       case "expensive":
         products.sort((a, b) => b.price - a.price);
         break;
+      default:
+        return;
     }
-    console.log(products);
     setProducts([...products]);
   };
 
@@ -74,7 +64,6 @@ function Products() {
             <Select
               labelId="select-sort-label"
               id="select-sort-label"
-              value={sort}
               label="Age"
               onChange={sortProducts}
             >

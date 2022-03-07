@@ -10,9 +10,9 @@ import {
   Button,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import Bar from "./Bar";
+import Bar from "./components/Bar";
 import Data from "./Data";
-import useLocalStorage from "./localStorage";
+import useLocalStorage from "./services/useLocalStorage";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 
 function Cart() {
@@ -47,9 +47,8 @@ function Cart() {
           {products.map((product) => (
             <Card
               key={product.barcode}
-              sx={{ display: "flex", height: 100 }}
+              sx={{ height: 100, width: 600, padding: 2 }}
               variant="outlined"
-              sx={{ width: 600, padding: 2 }}
             >
               <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <CardMedia
