@@ -12,6 +12,7 @@ import {
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Bar from "./Bar";
+import useLocalStorage from "./localStorage";
 
 const product = {
   name: "Apple iPhone 13 256 Gt",
@@ -24,12 +25,19 @@ const product = {
 
 function Product() {
   const { barcode } = useParams();
-  console.log(barcode);
-  console.log(product.image);
+  const [cart, setCart] = useLocalStorage("cart", []);
+
+  const addToCard = (event) => {
+    console.log(event.target.value);
+    if (event.target.value) {
+      cart.push(event.target.value);
+      setCart([...cart]);
+    }
+  };
 
   return (
     <>
-      <Bar />
+      <Bar productsInCart={cart.length} />
       <Grid container direction="column" alignItems="center" justify="center">
         <Card variant="outlined" sx={{ width: 600, marginTop: 6 }}>
           <CardContent>
@@ -49,7 +57,12 @@ function Product() {
             </Typography>
 
             <CardActions>
-              <Button variant="contained" startIcon={<AddShoppingCartIcon />}>
+              <Button
+                variant="contained"
+                startIcon={<AddShoppingCartIcon />}
+                value={barcode}
+                onClick={addToCard}
+              >
                 Add
               </Button>
             </CardActions>
