@@ -8,32 +8,31 @@ import Button from "@mui/material/Button";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
+import Input from "@mui/material/Input";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Link } from "react-router-dom";
 
 function Bar() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
+        <Typography
+          variant="h6"
+          component={Link}
+          to={"/"}
+          sx={{ flexGrow: 1, color: "inherit", textDecoration: "inherit" }}
         >
-          <MenuIcon />
-        </IconButton>
-
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Mobile Shop
         </Typography>
 
         <TextField
-          id="filled-basic"
-          label=""
+          id="search-field"
           variant="standard"
           autoFocus
-          sx={{ bgcolor: "background.paper" }}
+          sx={{
+            bgcolor: "background.paper",
+            borderRadius: 1,
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

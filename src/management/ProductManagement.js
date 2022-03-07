@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ProductList from "./ProductList";
-import { Link } from "react-router-dom";
 import ProductManagementBar from "./ProductManagementBar";
 
 function ProductManagement() {

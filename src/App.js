@@ -4,7 +4,7 @@ import Product from "./Product";
 import ProductManagement from "./management/ProductManagement";
 import ProductEdit from "./management/ProductEdit";
 
-//import "./App.css";
+// import "./App.css";
 
 function App() {
   return (

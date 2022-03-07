@@ -31,7 +31,7 @@ function Product() {
     <>
       <Bar />
       <Grid container direction="column" alignItems="center" justify="center">
-        <Card sx={{ width: 600, marginTop: 6 }}>
+        <Card variant="outlined" sx={{ width: 600, marginTop: 6 }}>
           <CardContent>
             <Typography variant="h5">{product.name}</Typography>
             <CardMedia
