@@ -11,7 +11,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
 function Bar(props) {
-  console.log(props.productsInCart);
   return (
     <AppBar position="static">
       <Toolbar>

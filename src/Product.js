@@ -28,7 +28,6 @@ function Product() {
   const [cart, setCart] = useLocalStorage("cart", []);
 
   const addToCard = (event) => {
-    console.log(event.target.value);
     if (event.target.value) {
       cart.push(event.target.value);
       setCart([...cart]);
