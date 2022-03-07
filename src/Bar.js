@@ -12,7 +12,8 @@ import Input from "@mui/material/Input";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
-function Bar() {
+function Bar(props) {
+  console.log(props.productsInCart);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -48,8 +49,10 @@ function Bar() {
           size="large"
           aria-label="show new notifications"
           color="inherit"
+          sx={{ marginLeft: 2 }}
+          href="/cart"
         >
-          <Badge badgeContent={3} color="error">
+          <Badge badgeContent={props.productsInCart} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>

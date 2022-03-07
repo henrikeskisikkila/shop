@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Stack,
@@ -28,45 +28,13 @@ import {
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Link } from "react-router-dom";
 import Bar from "./Bar";
-
-const phones = [
-  {
-    name: "Apple iPhone 13 256 Gt",
-    description:
-      "Apple iPhone 13. Kaikkein edistynein iPhonen kaksoiskamera­järjestelmä. Salaman­nopea A15 Bionic ‑siru. Iso harppaus akunkestossa.",
-    price: 948.9,
-    barcode: "5901234123457",
-    image: "5901234123457.jpeg",
-  },
-  {
-    name: "Apple iPhone 13 128 Gt",
-    description:
-      "Kestävä rakenne. Supernopea 5G. Salaman­nopea A15 Bionic ‑siru. Ja kirkkaampi Super Retina XDR ‑näyttö",
-    price: 849.0,
-    barcode: "1234234534561",
-    image: "1234234534561.jpeg",
-  },
-  {
-    name: "Apple iPhone 13 Pro Max 1 Tt",
-    description:
-      "Apple iPhone 13 Pro Max. Kaikkien aikojen isoin ammatti­tason kamera­järjestelmän päivitys.",
-    price: 1858.9,
-    barcode: "4321543265431",
-    image: "4321543265431.jpeg",
-  },
-  {
-    name: "Samsung Galaxy S20 FE 4G (2021)",
-    description:
-      "Galaxy S20 FE sisältää S20-sarjan tärkeimmät ja halutuimmat toiminnot, jotta yhä useampi voisi nauttia todellisen premium-puhelimen tunnusta.",
-    price: 499.0,
-    barcode: "5432432165432",
-    image: "5432432165432.jpeg",
-  },
-];
+import Data from "./Data";
+import useLocalStorage from "./localStorage";
 
 function Products() {
   const [sort, setSort] = useState();
-  const [products, setProducts] = useState(phones);
+  const [products, setProducts] = useState(Data);
+  const [cart, setCart] = useLocalStorage("cart", []);
 
   const sortProducts = (event) => {
     switch (event.target.value) {
@@ -77,12 +45,20 @@ function Products() {
         products.sort((a, b) => b.price - a.price);
         break;
     }
+    console.log(products);
     setProducts([...products]);
+  };
+
+  const addToCard = (event) => {
+    if (event.target.value) {
+      cart.push(event.target.value);
+      setCart([...cart]);
+    }
   };
 
   return (
     <div>
-      <Bar />
+      <Bar productsInCart={cart.length} />
 
       <Box
         sx={{
@@ -112,22 +88,22 @@ function Products() {
           <Stack>
             {products.map((product, index) => (
               <Box key={product.barcode}>
-                <Link
-                  to={`/product/${product.barcode}`}
-                  style={{ textDecoration: "none" }}
+                <Card
+                  mt={2}
+                  variant="outlined"
+                  sx={{
+                    display: "flex",
+                    spaceBetween: 1,
+                    flexDirection: "row",
+                    width: 600,
+                    height: 200,
+                    marginTop: 4,
+                    padding: 2,
+                  }}
                 >
-                  <Card
-                    mt={2}
-                    variant="outlined"
-                    sx={{
-                      display: "flex",
-                      spaceBetween: 1,
-                      flexDirection: "row",
-                      width: 600,
-                      height: 200,
-                      marginTop: 4,
-                      padding: 2,
-                    }}
+                  <Link
+                    to={`/product/${product.barcode}`}
+                    style={{ textDecoration: "none" }}
                   >
                     <CardMedia
                       component="img"
@@ -135,34 +111,38 @@ function Products() {
                       image={`${product.image}`}
                       alt={product.name}
                     />
-                    <CardContent>
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1 }}
-                      >
-                        {product.name}
-                      </Typography>
-                      <Typography variant="body2">
-                        {product.description}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        style={{ color: "red", fontWeight: "bold" }}
-                      >
-                        {product.price}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        variant="contained"
-                        startIcon={<AddShoppingCartIcon />}
-                      >
-                        Add
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Link>
+                  </Link>
+
+                  <CardContent>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{ flexGrow: 1 }}
+                    >
+                      {product.name}
+                    </Typography>
+
+                    <Typography variant="body2">
+                      {product.description}
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      style={{ color: "red", fontWeight: "bold" }}
+                    >
+                      {product.price}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      variant="contained"
+                      startIcon={<AddShoppingCartIcon />}
+                      value={product.barcode}
+                      onClick={addToCard}
+                    >
+                      Add
+                    </Button>
+                  </CardActions>
+                </Card>
               </Box>
             ))}
           </Stack>
