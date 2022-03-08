@@ -1,37 +1,25 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  CardMedia,
-  CardActions,
-  Button,
-  Box,
-  CircularProgress,
-} from "@mui/material";
-
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CardActions from "@mui/material/CardActions";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Bar from "./components/Bar";
 import Progress from "./components/Progress";
 import useLocalStorage from "./services/useLocalStorage";
-
-const fetchProduct = async ({ queryKey }) => {
-  const [_, barcode] = queryKey;
-  console.log(barcode);
-  const response = await fetch(`http://127.0.0.1:8000/products/${barcode}`);
-  const data = await response.json();
-  return data;
-};
+import { client } from "./services/client";
 
 function Product() {
   const { barcode } = useParams();
 
-  const { isLoading, isError, data, error } = useQuery(
-    ["product", barcode],
-    fetchProduct
-  );
+  const { isLoading, data } = useQuery({
+    queryKey: "product",
+    queryFn: () => client(`products/${barcode}`),
+  });
 
   const [cart, setCart] = useLocalStorage("cart", []);
 
@@ -41,10 +29,6 @@ function Product() {
       setCart([...cart]);
     }
   };
-
-  if (isError) {
-    return <div>{error.message}</div>;
-  }
 
   return (
     <>
@@ -59,7 +43,7 @@ function Product() {
               <CardMedia
                 component="img"
                 sx={{ maxWidth: 300, margin: 4 }}
-                image={`../${data.image}`}
+                image={`${process.env.REACT_APP_API_URL_STATIC}${data.image}`}
                 alt={data.name}
               />
               <Typography variant="body2">{data.description}</Typography>
@@ -69,7 +53,6 @@ function Product() {
               >
                 {data.price}
               </Typography>
-
               <CardActions>
                 <Button
                   variant="contained"
