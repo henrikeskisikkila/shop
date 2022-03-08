@@ -14,6 +14,7 @@ import {
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Bar from "./components/Bar";
+import Progress from "./components/Progress";
 import useLocalStorage from "./services/useLocalStorage";
 
 const fetchProduct = async ({ queryKey }) => {
@@ -50,9 +51,7 @@ function Product() {
       <Bar productsInCart={cart.length} />
       <Grid container direction="column" alignItems="center" justify="center">
         {isLoading ? (
-          <Box sx={{ display: "flex", margin: 20 }}>
-            <CircularProgress />
-          </Box>
+          <Progress />
         ) : (
           <Card variant="outlined" sx={{ width: 600, marginTop: 6 }}>
             <CardContent>
