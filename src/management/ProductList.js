@@ -6,6 +6,7 @@ import {
   TableCell,
   TableBody,
   IconButton,
+  Link,
 } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -36,7 +37,11 @@ function ProductList() {
                 </IconButton>
               </TableCell>
               <TableCell>
-                <IconButton edge="end" aria-label="edit">
+                <IconButton
+                  edge="end"
+                  aria-label="edit"
+                  href={`/management/edit/${product.barcode}`}
+                >
                   <EditOutlinedIcon />
                 </IconButton>
               </TableCell>

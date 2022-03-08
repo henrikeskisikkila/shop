@@ -16,7 +16,7 @@ function ProductManagementBar() {
         >
           Mobile Shop Manager
         </Typography>
-        <Button color="inherit" component={Link} to={"/management/edit"}>
+        <Button color="inherit" href={"/management/edit"}>
           Add Product
         </Button>
       </Toolbar>

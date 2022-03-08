@@ -1,21 +1,22 @@
-import ProductManagementBar from "./ProductManagementBar";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
-
-const product = {
-  name: "Apple iPhone 13 256 Gt",
-  description:
-    "Apple iPhone 13. Kaikkein edistynein iPhonen kaksoiskamera­järjestelmä. Salaman­nopea A15 Bionic ‑siru. Iso harppaus akunkestossa.",
-  price: "948.90",
-  barcode: "5901234123457",
-  image: "5901234123457.jpeg",
-};
+import ProductManagementBar from "./ProductManagementBar";
+import Progress from "../components/Progress";
+import { client } from "../services/client";
 
 function ProductEdit() {
+  const { barcode } = useParams();
+  const { isLoading, isSuccess, data } = useQuery({
+    queryKey: "product",
+    queryFn: () => client(`products/${barcode}`),
+  });
+
   return (
     <>
       <ProductManagementBar />
@@ -26,46 +27,49 @@ function ProductEdit() {
           autoComplete="off"
           sx={{ marginTop: 6, width: 400 }}
         >
-          <Stack spacing={6}>
-            <Typography>Product Details</Typography>
-            <TextField
-              id="outlined-number"
-              label="Barcode"
-              type="Number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              defaultValue={product.barcode}
-            />
-            <TextField
-              fullWidth
-              id="name"
-              label="Name"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              defaultValue={product.name ?? ""}
-            />
-            <TextField
-              id="outlined-number"
-              label="Price"
-              type="Number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              defaultValue={parseFloat(product.price) ?? null}
-            />
-            <TextField
-              id="description"
-              label="description"
-              multiline
-              InputLabelProps={{
-                shrink: true,
-              }}
-              defaultValue={product.description ?? ""}
-            />
-            <Button>Save</Button>
-          </Stack>
+          {isLoading ? <Progress /> : null}
+          {isSuccess ? (
+            <Stack spacing={6}>
+              <Typography>Product Details</Typography>
+              <TextField
+                id="outlined-number"
+                label="Barcode"
+                type="Number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                defaultValue={data.barcode}
+              />
+              <TextField
+                fullWidth
+                id="name"
+                label="Name"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                defaultValue={data.name ?? ""}
+              />
+              <TextField
+                id="outlined-number"
+                label="Price"
+                type="Number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                defaultValue={parseFloat(data.price) ?? null}
+              />
+              <TextField
+                id="description"
+                label="description"
+                multiline
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                defaultValue={data.description ?? ""}
+              />
+              <Button>Save</Button>
+            </Stack>
+          ) : null}
         </Box>
       </Grid>
     </>
