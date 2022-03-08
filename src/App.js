@@ -5,7 +5,7 @@ import Product from "./Product";
 import ProductManagement from "./management/ProductManagement";
 import ProductEdit from "./management/ProductEdit";
 
-function App() {
+function App(props) {
   return (
     <Router>
       <Routes>
