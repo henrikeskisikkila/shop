@@ -22,6 +22,8 @@ import { client } from "./services/client";
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const [query, setQuery] = useState();
+
   const [cart, setCart] = useLocalStorage("cart", []);
 
   const { isLoading, isSuccess, data } = useQuery({
@@ -50,9 +52,13 @@ function Products() {
     }
   };
 
+  const searchProducts = (searchQuery) => {
+    console.log(searchQuery);
+  };
+
   return (
     <div>
-      <Bar productsInCart={cart.length} />
+      <Bar productsInCart={cart.length} handleSearch={searchProducts} />
 
       <Box
         sx={{

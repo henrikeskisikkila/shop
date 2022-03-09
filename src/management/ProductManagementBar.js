@@ -16,7 +16,7 @@ function ProductManagementBar() {
         >
           Mobile Shop Manager
         </Typography>
-        <Button color="inherit" href={"/management/edit"}>
+        <Button color="inherit" href={"/management/add"}>
           Add Product
         </Button>
       </Toolbar>

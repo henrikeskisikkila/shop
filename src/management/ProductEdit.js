@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import Alert from "@mui/material/Alert";
 import ProductManagementBar from "./ProductManagementBar";
 import ProductForm from "./ProductForm";
@@ -16,6 +16,7 @@ function ProductEdit() {
   });
 
   const [saved, setSaved] = useState(false);
+  const queryClient = useQueryClient();
 
   const mutation = useMutation(
     (product) => {
@@ -27,6 +28,7 @@ function ProductEdit() {
     {
       onSuccess: () => {
         setSaved(true);
+        queryClient.invalidateQueries("product");
       },
     }
   );
@@ -59,4 +61,3 @@ function ProductEdit() {
 }
 
 export default ProductEdit;
-//<Card sx={{ width: 600, marginTop: 6 }}></Card>

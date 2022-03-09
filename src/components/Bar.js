@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,6 +12,13 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
 function Bar(props) {
+  const [query, setQuery] = useState(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.handleSearch(query);
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -23,24 +31,30 @@ function Bar(props) {
           Mobile Shop
         </Typography>
 
-        <TextField
-          id="search-field"
-          variant="standard"
-          autoFocus
-          sx={{
-            bgcolor: "background.paper",
-            borderRadius: 1,
-          }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Button>
-                  <SearchIcon />
-                </Button>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="search-field"
+            variant="standard"
+            autoFocus
+            sx={{
+              bgcolor: "background.paper",
+              borderRadius: 1,
+              paddingLeft: 1,
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button type="submit">
+                    <SearchIcon />
+                  </Button>
+                </InputAdornment>
+              ),
+              disableUnderline: true,
+            }}
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </form>
 
         <IconButton
           size="large"

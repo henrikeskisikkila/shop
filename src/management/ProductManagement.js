@@ -1,5 +1,5 @@
-import ProductList from "./ProductList";
 import ProductManagementBar from "./ProductManagementBar";
+import ProductList from "./ProductList";
 
 function ProductManagement() {
   return (
