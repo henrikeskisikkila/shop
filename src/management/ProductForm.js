@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
-import ProductManagementBar from "./ProductManagementBar";
-import Progress from "../components/Progress";
-import { client } from "../services/client";
 
 function ProductForm({ data, handleSaveButton }) {
   const [barcode, setBarcode] = useState(data?.barcode);
@@ -17,14 +13,13 @@ function ProductForm({ data, handleSaveButton }) {
   const [description, setDescription] = useState(data?.description);
 
   const formData = () => {
-    console.log(barcode, name, price, description);
     if (typeof handleSaveButton === "function") {
       handleSaveButton({
         barcode: barcode,
         name: name,
         price: price,
         description: description,
-        image: "imagename.jpeg",
+        image: "placeholder.jpeg",
       });
     }
   };

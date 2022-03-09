@@ -1,14 +1,6 @@
-import { useParams } from "react-router-dom";
-import { useMutation, queryCache } from "react-query";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { useMutation } from "react-query";
 import ProductManagementBar from "./ProductManagementBar";
 import ProductForm from "./ProductForm";
-import Progress from "../components/Progress";
 import { client } from "../services/client";
 
 function ProductAdd() {
@@ -17,7 +9,6 @@ function ProductAdd() {
   });
 
   const addProduct = (product) => {
-    console.log(product);
     mutation.mutate(product);
   };
 
