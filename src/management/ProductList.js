@@ -1,19 +1,32 @@
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  IconButton,
-  Link,
-} from "@mui/material";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import Data from "../Data";
+import { useQuery, useMutation, useQueryClient } from "react-query";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import Button from "@mui/material/Button";
+import { client } from "../services/client";
+import Progress from "../components/Progress";
 
 function ProductList() {
-  return (
+  const { isLoading, isSuccess, data } = useQuery({
+    queryKey: "product",
+    queryFn: () => client(`products`),
+  });
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (barcode) => client(`products/${barcode}/`, { httpMethod: "DELETE" }),
+    { onSettled: () => queryClient.invalidateQueries("product") }
+  );
+
+  if (isLoading) {
+    return <Progress />;
+  }
+
+  return isSuccess ? (
     <TableContainer>
       <Table>
         <TableHead>
@@ -21,36 +34,38 @@ function ProductList() {
             <TableCell>Barcode</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Price</TableCell>
-            <TableCell>Delete</TableCell>
-            <TableCell>Edit</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Data.map((product, index) => (
-            <TableRow>
+          {data?.map((product) => (
+            <TableRow key={product.barcode}>
               <TableCell>{product.barcode}</TableCell>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.price}</TableCell>
               <TableCell>
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteOutlinedIcon />
-                </IconButton>
+                <Button
+                  color="error"
+                  value={product.barcode}
+                  onClick={() => {
+                    mutation.mutate(product.barcode);
+                  }}
+                >
+                  Remove
+                </Button>
               </TableCell>
               <TableCell>
-                <IconButton
-                  edge="end"
-                  aria-label="edit"
-                  href={`/management/edit/${product.barcode}`}
-                >
-                  <EditOutlinedIcon />
-                </IconButton>
+                <Button href={`/management/edit/${product.barcode}`}>
+                  Edit{" "}
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  ) : null;
 }
 
 export default ProductList;
