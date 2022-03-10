@@ -16,15 +16,11 @@ function Search() {
   );
 
   return (
-    <div>
+    <>
       <Bar productsInCart={cart.length} />
       <Crumbs current={"Search Results"} />
-      {isSuccess ? (
-        <>
-          <List items={data} />
-        </>
-      ) : null}
-    </div>
+      {isSuccess ? <List items={data} /> : null}
+    </>
   );
 }
 

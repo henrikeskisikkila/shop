@@ -52,12 +52,14 @@ function Product({ product }) {
           </Typography>
 
           <Typography variant="body2">{product.description}</Typography>
+
           <Typography
             variant="subtitle1"
             style={{ color: "red", fontWeight: "bold" }}
           >
             {product.price}
           </Typography>
+          <Typography variant="caption">{product.barcode}</Typography>
         </CardContent>
         <CardActions>
           <Button
