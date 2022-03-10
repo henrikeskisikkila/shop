@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
@@ -16,27 +17,21 @@ import Progress from "./components/Progress";
 import useLocalStorage from "./services/useLocalStorage";
 import { client } from "./services/client";
 import Crumbs from "./components/Crumbs";
+import { Context } from "./services/ContextProvider";
 
 function ProductDetails() {
   const { barcode } = useParams();
+
+  const { addToCart } = useContext(Context);
 
   const { isLoading, data } = useQuery({
     queryKey: "product",
     queryFn: () => client(`products/${barcode}`),
   });
 
-  const [cart, setCart] = useLocalStorage("cart", []);
-
-  const addToCard = (event) => {
-    if (event.target.value) {
-      cart.push(event.target.value);
-      setCart([...cart]);
-    }
-  };
-
   return (
     <>
-      <Bar productsInCart={cart.length} />
+      <Bar />
       <Grid container direction="column" alignItems="center" justify="center">
         {isLoading ? (
           <Progress />
@@ -79,8 +74,8 @@ function ProductDetails() {
                   <Button
                     variant="contained"
                     startIcon={<AddShoppingCartIcon />}
-                    value={barcode}
-                    onClick={addToCard}
+                    value={data}
+                    onClick={() => addToCart(data)}
                   >
                     Add
                   </Button>

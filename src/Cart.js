@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useQueries, useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -12,32 +13,19 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Bar from "./components/Bar";
 import Crumbs from "./components/Crumbs";
 import Data from "./Data";
-import useLocalStorage from "./services/useLocalStorage";
+import { client } from "./services/client";
+import { Context } from "./services/ContextProvider";
 
 function Cart() {
-  const [cart, setCart] = useLocalStorage("cart", []);
-  const [products, setProducts] = useState([]);
+  const { cartItems: products, removeFromCart } = useContext(Context);
 
-  useEffect(() => {
-    const products = cart.map((cartItem) => {
-      const result = Data.filter((product) => {
-        return product.barcode === cartItem;
-      });
-      return result;
-    });
-    const productData = products.flatMap((item) => item);
-    setProducts(productData);
-  }, [cart]);
-
-  const removeFromCart = (event) => {
-    const index = cart.findIndex((barcode) => barcode === event.target.value);
-    cart.splice(index, 1);
-    setCart([...cart]);
+  const remove = (event) => {
+    removeFromCart(event.target.value);
   };
 
   return (
     <>
-      <Bar productsInCart={cart.length} />
+      <Bar />
       <Grid container direction="column" alignItems="center" justify="center">
         <Crumbs current={"Shopping Cart"} />
         <Typography variant="h5" sx={{ margin: 4 }}>
@@ -74,7 +62,7 @@ function Cart() {
                     variant="contained"
                     startIcon={<RemoveShoppingCartIcon />}
                     value={product.barcode}
-                    onClick={removeFromCart}
+                    onClick={remove}
                   >
                     Remove
                   </Button>

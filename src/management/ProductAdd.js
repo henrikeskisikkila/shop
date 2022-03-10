@@ -15,7 +15,6 @@ function ProductAdd() {
     },
     {
       onSuccess: () => {
-        console.log("success");
         setAdded(true);
       },
     }

@@ -10,13 +10,13 @@ import Grid from "@mui/material/Grid";
 import Bar from "./components/Bar";
 import Progress from "./components/Progress";
 import Product from "./components/Product";
-import useLocalStorage from "./services/useLocalStorage";
+// import useLocalStorage from "./services/useLocalStorage";
 import { client } from "./services/client";
 
 function Products() {
   const [endpoint, setEndpoint] = useState("products");
   const [sort, setSort] = useState("");
-  const [cart, setCart] = useLocalStorage("cart", []);
+  // const [cart, setCart] = useLocalStorage("cart", []);
   const navigate = useNavigate();
 
   const { isLoading, isSuccess, data } = useQuery(["product", endpoint], () =>
@@ -47,7 +47,7 @@ function Products() {
 
   return (
     <>
-      <Bar productsInCart={cart.length} />
+      <Bar />
       {isLoading ? <Progress /> : null}
       {isSuccess ? (
         <>

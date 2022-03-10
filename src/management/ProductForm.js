@@ -19,7 +19,7 @@ function ProductForm({ data, handleSaveButton }) {
         name: name,
         price: price,
         description: description,
-        image: "placeholder.jpeg",
+        image: null,
       });
     }
   };

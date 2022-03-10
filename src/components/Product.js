@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -7,18 +8,10 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import useLocalStorage from "../services/useLocalStorage";
+import { Context } from "../services/ContextProvider";
 
 function Product({ product }) {
-  const [cart, setCart] = useLocalStorage("cart", []);
-
-  const addToCard = (event) => {
-    const value = event.target.value;
-    if (value) {
-      cart.push(value);
-      setCart([...cart]);
-    }
-  };
+  const { addToCart } = useContext(Context);
 
   return (
     <>
@@ -75,7 +68,7 @@ function Product({ product }) {
             variant="contained"
             startIcon={<AddShoppingCartIcon />}
             value={product.barcode}
-            onClick={addToCard}
+            onClick={() => addToCart(product)}
           >
             Add
           </Button>
