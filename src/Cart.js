@@ -1,19 +1,18 @@
-import {
-  Grid,
-  Stack,
-  Box,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Button,
-} from "@mui/material";
 import React, { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Button from "@mui/material/Button";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Bar from "./components/Bar";
+import Crumbs from "./components/Crumbs";
 import Data from "./Data";
 import useLocalStorage from "./services/useLocalStorage";
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 
 function Cart() {
   const [cart, setCart] = useLocalStorage("cart", []);
@@ -40,6 +39,7 @@ function Cart() {
     <>
       <Bar productsInCart={cart.length} />
       <Grid container direction="column" alignItems="center" justify="center">
+        <Crumbs current={"Shopping Cart"} />
         <Typography variant="h5" sx={{ margin: 4 }}>
           Shopping Cart
         </Typography>

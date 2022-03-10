@@ -6,6 +6,7 @@ import Link from "@mui/material/Link";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -14,6 +15,7 @@ import Bar from "./components/Bar";
 import Progress from "./components/Progress";
 import useLocalStorage from "./services/useLocalStorage";
 import { client } from "./services/client";
+import Crumbs from "./components/Crumbs";
 
 function ProductDetails() {
   const { barcode } = useParams();
@@ -40,24 +42,27 @@ function ProductDetails() {
           <Progress />
         ) : (
           <>
-            <Breadcrumbs
-              aria-label="breadcrumb"
-              sx={{ width: 600, marginTop: 3 }}
-            >
-              <Link underline="hover" color="inherit" href="/">
-                Home
-              </Link>
-              <Typography color="text.primary">Product Detail</Typography>
-            </Breadcrumbs>
+            <Crumbs current={"Product Detail"} />
             <Card variant="outlined" sx={{ width: 600, marginTop: 3 }}>
               <CardContent>
                 <Typography variant="h5">{data.name}</Typography>
-                <CardMedia
-                  component="img"
-                  sx={{ maxWidth: 300, margin: 4 }}
-                  image={`${process.env.REACT_APP_API_URL_STATIC}${data.image}`}
-                  alt={data.name}
-                />
+                {data.image ? (
+                  <CardMedia
+                    component="img"
+                    sx={{ maxWidth: 300, margin: 4 }}
+                    image={`${process.env.REACT_APP_API_URL_STATIC}${data.image}`}
+                    alt={data.name}
+                  />
+                ) : (
+                  <Box
+                    sx={{
+                      width: 300,
+                      height: 400,
+                      margin: 4,
+                      background: "lightGray",
+                    }}
+                  />
+                )}
                 <Typography variant="body2">{data.description}</Typography>
                 <Typography
                   variant="h6"
@@ -65,6 +70,11 @@ function ProductDetails() {
                 >
                   {data.price}
                 </Typography>
+                <Box sx={{ mt: 2, mb: 2 }}>
+                  <Typography variant="caption">
+                    barcode: {data.barcode}
+                  </Typography>
+                </Box>
                 <CardActions>
                   <Button
                     variant="contained"

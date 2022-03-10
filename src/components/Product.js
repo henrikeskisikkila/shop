@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
@@ -38,18 +39,22 @@ function Product({ product }) {
           to={`/product/${product.barcode}`}
           style={{ textDecoration: "none" }}
         >
-          <CardMedia
-            component="img"
-            sx={{ width: 150 }}
-            image={`${process.env.REACT_APP_API_URL_STATIC}${product.image}`}
-            alt={product.name}
-          />
+          {product.image ? (
+            <CardMedia
+              component="img"
+              sx={{
+                width: 150,
+              }}
+              image={`${process.env.REACT_APP_API_URL_STATIC}${product.image}`}
+              alt={product.name}
+            />
+          ) : (
+            <Box sx={{ width: 150, height: 200, background: "lightGray" }} />
+          )}
         </Link>
 
-        <CardContent>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {product.name}
-          </Typography>
+        <CardContent sx={{ flexGrow: 2 }}>
+          <Typography variant="h6">{product.name}</Typography>
 
           <Typography variant="body2">{product.description}</Typography>
 
@@ -59,7 +64,11 @@ function Product({ product }) {
           >
             {product.price}
           </Typography>
-          <Typography variant="caption">{product.barcode}</Typography>
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="caption">
+              barcode: {product.barcode}
+            </Typography>
+          </Box>
         </CardContent>
         <CardActions>
           <Button
