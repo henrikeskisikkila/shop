@@ -2,7 +2,6 @@ const client = async (
   endpoint,
   { httpMethod, data, customHeaders, customConfig } = {}
 ) => {
-  console.log(httpMethod);
   const config = {
     method: httpMethod ? httpMethod : data ? "POST" : "GET",
     body: data ? JSON.stringify(data) : undefined,
@@ -12,6 +11,8 @@ const client = async (
     },
     ...customConfig,
   };
+
+  console.log("endpoint: ", endpoint);
 
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}${endpoint}`,

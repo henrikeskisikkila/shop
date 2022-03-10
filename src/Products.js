@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -22,14 +22,32 @@ import { client } from "./services/client";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const [query, setQuery] = useState();
-
   const [cart, setCart] = useLocalStorage("cart", []);
+  const navigate = useNavigate();
 
-  const { isLoading, isSuccess, data } = useQuery({
-    queryKey: "product",
-    queryFn: () => client(`products`),
+  const addToCard = (event) => {
+    const value = event.target.value;
+    if (value) {
+      cart.push(value);
+      setCart([...cart]);
+    }
+  };
+
+  let query = "";
+
+  const {
+    isLoading,
+    isSuccess,
+    data,
+    refetch: fetchProducts,
+  } = useQuery("product", () => client(`products`), {
+    refetchOnWindowFocus: false,
+    enabled: false,
   });
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const sortProducts = (event) => {
     switch (event.target.value) {
@@ -45,20 +63,26 @@ function Products() {
     setProducts([...products]);
   };
 
-  const addToCard = (event) => {
-    if (event.target.value) {
-      cart.push(event.target.value);
-      setCart([...cart]);
-    }
-  };
+  const {
+    isLoading: isLoadingSearchResults,
+    isSuccess: isSearchSuccess,
+    data: searchData,
+    refetch: fetchSearchResults,
+  } = useQuery(
+    ["search", query],
+    () => client(`products/search?query=${query}`),
+    { enabled: false }
+  );
 
-  const searchProducts = (searchQuery) => {
-    console.log(searchQuery);
-  };
+  console.log(searchData);
+
+  if (isSearchSuccess) {
+    query = "";
+  }
 
   return (
     <div>
-      <Bar productsInCart={cart.length} handleSearch={searchProducts} />
+      <Bar productsInCart={cart.length} />
 
       <Box
         sx={{
@@ -69,6 +93,7 @@ function Products() {
         }}
       >
         {isLoading ? <Progress /> : null}
+
         {isSuccess ? (
           <>
             <Box sx={{ width: 600 }}>
@@ -78,6 +103,7 @@ function Products() {
                   labelId="select-sort-label"
                   id="select-sort-label"
                   label="Age"
+                  value={""}
                   onChange={sortProducts}
                 >
                   <MenuItem value={"cheapest"}>Price - Cheapest</MenuItem>

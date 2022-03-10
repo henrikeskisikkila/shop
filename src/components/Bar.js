@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -12,11 +13,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
 
 function Bar(props) {
-  const [query, setQuery] = useState(null);
+  const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+
+  console.log("Render Bar");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.handleSearch(query);
+    navigate(`/search?query=${query}`, { replace: true });
   };
 
   return (
