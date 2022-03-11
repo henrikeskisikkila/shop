@@ -7,10 +7,10 @@ import List from "./components/List";
 import { client } from "./services/client";
 
 function Search() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
 
-  const { isLoading, isSuccess, data } = useQuery(["search", query], () =>
+  const { isSuccess, data } = useQuery(["search", query], () =>
     client(`products/search?query=${query}`)
   );
 

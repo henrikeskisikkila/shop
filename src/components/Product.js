@@ -45,12 +45,9 @@ function Product({ product }) {
             <Box sx={{ width: 150, height: 200, background: "lightGray" }} />
           )}
         </Link>
-
         <CardContent sx={{ flexGrow: 2 }}>
           <Typography variant="h6">{product.name}</Typography>
-
           <Typography variant="body2">{product.description}</Typography>
-
           <Typography
             variant="subtitle1"
             style={{ color: "red", fontWeight: "bold" }}

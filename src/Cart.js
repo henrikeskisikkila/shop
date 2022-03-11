@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useQueries, useQuery } from "react-query";
+import React, { useContext } from "react";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -12,7 +11,6 @@ import Button from "@mui/material/Button";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Bar from "./components/Bar";
 import Crumbs from "./components/Crumbs";
-import { client } from "./services/client";
 import { Context } from "./services/ContextProvider";
 
 function Cart() {

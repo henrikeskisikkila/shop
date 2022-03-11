@@ -35,7 +35,6 @@ function ProductEdit() {
   );
 
   const editProduct = (product) => {
-    console.log(product);
     mutation.mutate(product);
   };
 

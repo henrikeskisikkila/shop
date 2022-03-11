@@ -2,8 +2,6 @@ import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import Grid from "@mui/material/Grid";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";

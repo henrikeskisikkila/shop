@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
@@ -15,7 +14,6 @@ import { client } from "./services/client";
 function Products() {
   const [endpoint, setEndpoint] = useState("products");
   const [sort, setSort] = useState("");
-  const navigate = useNavigate();
 
   const { isLoading, isSuccess, data } = useQuery(["product", endpoint], () =>
     client(endpoint)
