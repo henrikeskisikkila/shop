@@ -18,7 +18,6 @@ import { Context } from "./services/ContextProvider";
 
 function ProductDetails() {
   const { barcode } = useParams();
-
   const { addToCart } = useContext(Context);
 
   const { isLoading, data } = useQuery({
