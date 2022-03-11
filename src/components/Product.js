@@ -55,7 +55,7 @@ function Product({ product }) {
             variant="subtitle1"
             style={{ color: "red", fontWeight: "bold" }}
           >
-            {product.price}
+            {parseFloat(product.price).toFixed(2)}
           </Typography>
           <Box sx={{ mt: 3 }}>
             <Typography variant="caption">

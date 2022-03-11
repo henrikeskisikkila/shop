@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import Alert from "@mui/material/Alert";
 import ProductManagementBar from "./ProductManagementBar";
+import Crumbs from "../components/Crumbs";
 import ProductForm from "./ProductForm";
 import Progress from "../components/Progress";
 import { client } from "../services/client";
@@ -11,7 +12,7 @@ function ProductEdit() {
   const { barcode } = useParams();
 
   const { isLoading, isSuccess, data } = useQuery({
-    queryKey: "product",
+    queryKey: ["product", barcode],
     queryFn: () => client(`products/${barcode}`),
   });
 
@@ -41,6 +42,7 @@ function ProductEdit() {
   return (
     <>
       <ProductManagementBar />
+      <Crumbs home={"/management"} current={"Edit Product"} />
       {isLoading ? <Progress /> : null}
       {isSuccess ? (
         <ProductForm data={data} handleSaveButton={editProduct} />

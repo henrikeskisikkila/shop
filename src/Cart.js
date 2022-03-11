@@ -32,19 +32,25 @@ function Cart() {
           Shopping Cart
         </Typography>
         <Stack spacing={2}>
-          {products.map((product) => (
+          {products.map((product, index) => (
             <Card
-              key={product.barcode}
+              key={index}
               sx={{ height: 100, width: 600, padding: 2 }}
               variant="outlined"
             >
               <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <CardMedia
-                  component="img"
-                  sx={{ maxHeight: 100, height: "auto", width: "auto" }}
-                  image={`${product.image}`}
-                  alt={product.name}
-                />
+                {product.image ? (
+                  <CardMedia
+                    component="img"
+                    sx={{ maxHeight: 100, height: "auto", width: "auto" }}
+                    image={`${product.image}`}
+                    alt={product.name}
+                  />
+                ) : (
+                  <Box
+                    sx={{ width: 80, height: 100, background: "lightGray" }}
+                  />
+                )}
                 <CardContent>
                   <Typography>{product.name}</Typography>
                   <Typography style={{ color: "red", fontWeight: "bold" }}>

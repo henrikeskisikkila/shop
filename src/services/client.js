@@ -12,19 +12,16 @@ const client = async (
     ...customConfig,
   };
 
-  console.log("endpoint:", endpoint);
-
   const response = await fetch(
     `${process.env.REACT_APP_API_URL}${endpoint}`,
     config
   );
 
-  if (response.status === 204) {
-    return response.ok ? response : Promise.reject(response);
-  }
+  // if (response.status === 204) {
+  //   return response.ok ? response : Promise.reject(response);
+  // }
 
   const jsonData = await response.json();
-  console.log(jsonData);
   return response.ok ? jsonData : Promise.reject(jsonData);
 };
 
