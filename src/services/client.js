@@ -17,10 +17,6 @@ const client = async (
     config
   );
 
-  // if (response.status === 204) {
-  //   return response.ok ? response : Promise.reject(response);
-  // }
-
   const jsonData = await response.json();
   return response.ok ? jsonData : Promise.reject(jsonData);
 };

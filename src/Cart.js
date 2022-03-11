@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import Bar from "./components/Bar";
 import Crumbs from "./components/Crumbs";
-import Data from "./Data";
 import { client } from "./services/client";
 import { Context } from "./services/ContextProvider";
 

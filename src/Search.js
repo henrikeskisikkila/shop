@@ -4,12 +4,10 @@ import Typography from "@mui/material/Typography";
 import Bar from "./components/Bar";
 import Crumbs from "./components/Crumbs";
 import List from "./components/List";
-import useLocalStorage from "./services/useLocalStorage";
 import { client } from "./services/client";
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cart, setCart] = useLocalStorage("cart", []);
   const query = searchParams.get("query");
 
   const { isLoading, isSuccess, data } = useQuery(["search", query], () =>
@@ -18,7 +16,7 @@ function Search() {
 
   return (
     <>
-      <Bar productsInCart={cart.length} />
+      <Bar />
       <Crumbs current={"Search Results"} />
 
       {isSuccess && data?.length > 0 ? <List items={data} /> : null}

@@ -14,7 +14,6 @@ import Button from "@mui/material/Button";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Bar from "./components/Bar";
 import Progress from "./components/Progress";
-import useLocalStorage from "./services/useLocalStorage";
 import { client } from "./services/client";
 import Crumbs from "./components/Crumbs";
 import { Context } from "./services/ContextProvider";
