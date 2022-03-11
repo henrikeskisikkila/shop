@@ -42,7 +42,7 @@ function Cart() {
                   <CardMedia
                     component="img"
                     sx={{ maxHeight: 100, height: "auto", width: "auto" }}
-                    image={`${product.image}`}
+                    image={`${process.env.REACT_APP_API_URL_STATIC}${product.image}`}
                     alt={product.name}
                   />
                 ) : (
